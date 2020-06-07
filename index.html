@@ -1,33 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <!-- <div id="results"></div> -->
 
-    <div class="container">
-      <h1>GIFSPOT</h1>
-      <p>Search GIF's!</p>
-      <p>Start typing bellow and click find</p>
-      <form id="gif-form">
-        <input type="text" class="search" />
-        <input type="submit" value="find" />
-      </form>
-      <div class="grid"></div>
-    </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
 
-    <script src="https://unpkg.com/colcade@0/colcade.js"></script>
-    <script>
-      var colc = new Colcade(".grid", {
-        columns: ".grid-col",
-        items: ".grid-item",
-      });
-    </script>
-    <script src="script.js"></script>
-    <script></script>
-  </body>
+<body>
+  <!-- <div id="results"></div> -->
+
+
+  <div class="header underline">
+    <h1>GIFSPOT</h1>
+    <span class="underline"> </span>
+  </div>
+  <div class="searchBox">
+    <label class="label">Search all GIF's:</label>
+    <form id="gif-form" class="form">
+      <input type="text" class="search" />
+    </form>
+  </div>
+  <div class="container">
+    <div class="grid"></div>
+  </div>
+
+  <script src="https://unpkg.com/colcade@0/colcade.js"></script>
+  <script>
+    var colc = new Colcade(".grid", {
+      columns: ".grid-col",
+      items: ".grid-item",
+    });
+  </script>
+  <script src="script.js"></script>
+  <script></script>
+</body>
+
 </html>

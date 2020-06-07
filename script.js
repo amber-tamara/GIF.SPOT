@@ -8,7 +8,7 @@
 // });
 
 const gifForm = document.querySelector("#gif-form");
-gifForm.addEventListener("submit", fetchGiphs);
+gifForm.addEventListener("keyup", fetchGiphs);
 const result = document.querySelector(".grid");
 
 function fetchGiphs(e) {

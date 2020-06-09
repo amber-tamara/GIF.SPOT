@@ -4,40 +4,59 @@
 } */
 
 * {
-  margin: 0;
   padding: 0;
-  font-family: "Montserrat";
+  font-family: "nexablack", sans-serif;
+  background-color: #130a14;
+  box-sizing: border-box;
 }
 
 .container {
+  margin: 0 auto;
   position: relative;
-  height: 100vh;
-  width: 100%;
+  max-width: 1040px;
+  min-height: 1288px;
+}
+
+.type {
+  font-size: 1em;
+  font-weight: 100;
+  letter-spacing: 1.5px;
+  color: rgba(255, 255, 255, 0.842);
 }
 
 h1 {
-  position: relative;
-  height: auto;
-  width: 300px;
-  left: 50%;
-  transform: translateX(-50%);
-  margin: 5% 0 2% 0;
   text-align: center;
   font-size: 2.8em;
   font-weight: 650;
   letter-spacing: 1.5px;
-  color: #8b008b;
-  border-left: 5px solid #a8dbee;
-  border-right: 5px solid #a8dbee;
-  background: rgba(0, 0, 0, 0.05);
+  color: rgba(255, 255, 255, 0.842);
+  line-height: 1.2;
+}
+
+.underline {
+  text-decoration: underline;
+  color: #a8dbee;
+}
+
+.label {
+  color: rgba(255, 255, 255, 0.842);
+  margin-bottom: 1em;
+}
+.form {
+  margin-top: 5px;
+}
+
+.searchBox {
+  width: 90%;
+  margin: 0 auto;
 }
 
 .grid {
   position: relative;
   height: auto;
-  width: 90%;
+  /* width: 90%; */
   margin: auto;
-  padding: 45px 0;
+  /* padding: 45px 0; */
   display: grid;
   grid-template-columns: auto auto auto auto;
   grid-gap: 2vmin;
@@ -77,7 +96,36 @@ h1 {
 .grid-item img {
   height: 100%;
   width: 100%;
-  object-fit: cover;
+  object-fit: unset;
+}
+
+.searchBox {
+  margin: 0 auto;
+  width: 1040px;
+}
+
+.search {
+  background-color: rgb(255, 255, 255);
+  font-weight: normal;
+  padding: 15px;
+  min-height: 25px;
+  letter-spacing: 1px;
+  font-size: 18px;
+  width: 100%;
+}
+
+/* input[type=text], select, textarea {
+
+  width: 1040px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+} */
+
+.searchBarTitle {
+  display: flex;
+  letter-spacing: 2px;
 }
 
 /* 
@@ -99,3 +147,41 @@ h1 {
 .grid-item img {
   max-width: 100%;
 } */
+
+.hide {
+  background-color: red;
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  left: 50%;
+}
+
+.noResultsMsg {
+  text-align: center;
+  position: relative;
+}
+
+.banana {
+  background: rebeccapurple;
+  height: 200px;
+  margin-top: 2em;
+  display: block;
+}
+
+div.ramama {
+  height: 0px;
+  padding: 0px;
+}
+
+.intro {
+  background: LavenderBlush;
+  height: 300px;
+  margin-top: 2em;
+}
+
+.grid,
+.intro,
+.banana {
+  transition: 0.5s;
+  overflow: hidden;
+}

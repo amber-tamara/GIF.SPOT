@@ -53,7 +53,7 @@ function fetchGiphs(e) {
     for (let i = 0; i < dataArray.length; i++) {
       const img = `
         <div class="grid-item">
-          <img src="${dataArray[i].images.original.url}" />
+          <img class="fade-in" src="${dataArray[i].images.original.url}" />
         </div>`;
       HTMLPayload += img;
     }

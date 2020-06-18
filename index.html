@@ -8,22 +8,36 @@
   </head>
 
   <body>
-    <div class="header underline">
-      <h1>GIFSPOT</h1>
-      <span class="underline"> </span>
+    <div class="container" id="blur">
+      <div class="header underline">
+        <h1>GIFSPOT</h1>
+        <span class="underline"> </span>
+      </div>
+      <div class="searchBox">
+        <label class="label">Search all GIF's:</label>
+        <form id="gif-form" class="form">
+          <input type="text" class="search" />
+        </form>
+      </div>
+      <div class="container item" data-aos="zoom-in">
+        <div class="banana ramama">
+          <h1 class="message">No GIF's found...</h1>
+        </div>
+        <div class="intro"><h1 class="message">Explore free GIF's</h1></div>
+
+        <div class="grid"></div>
+      </div>
+      <div class="box remove">
+        <div class="circle bounce-2"></div>
+        <div class="circle bounce-2"></div>
+        <div class="circle bounce-2"></div>
+        <div class="circle bounce-2"></div>
+      </div>
+      <!-- <button type="button" id="button">Click Me!</button> -->
     </div>
-    <div class="searchBox">
-      <label class="label">Search all GIF's:</label>
-      <form id="gif-form" class="form">
-        <input type="text" class="search" />
-      </form>
+    <div class="modal">
+      <div class="modal-content"></div>
     </div>
-    <div class="container">
-      <div class="banana"><h1 class="message">No GIF's found...</h1></div>
-      <div class="intro"><h1 class="message">Explore free GIF's</h1></div>
-      <div class="grid"></div>
-    </div>
-    </script>
     <script src="script.js"></script>
   </body>
 </html>

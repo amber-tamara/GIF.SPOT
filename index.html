@@ -1,43 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
 
-  <body>
-    <div class="container" id="blur">
-      <div class="header underline">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GIFSPOT</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="shortcut icon" type="image/png" href="./images/Giphy Icon Circle.png" />
+</head>
+
+<body>
+  <div class="container" id="blur">
+    <div class="header">
+      <div class="title-box">
         <h1>GIFSPOT</h1>
-        <span class="underline"> </span>
       </div>
       <div class="searchBox">
-        <label class="label">Search all GIF's:</label>
         <form id="gif-form" class="form">
-          <input type="text" class="search" />
+          <input type="text" placeholder="Search all the GIF's" id="searchy" class="search" />
+          <button class="button"></button>
         </form>
       </div>
-      <div class="container item" data-aos="zoom-in">
-        <div class="banana ramama">
-          <h1 class="message">No GIF's found...</h1>
-        </div>
-        <div class="intro"><h1 class="message">Explore free GIF's</h1></div>
+    </div>
+    <div class="clip">
+      <div class="paragraph-box">
+        <p class="paragraph">Explore and share the best GIFs and most popular animated GIFs here on GIFSPOT. Find
+          Funny GIFs, Cute GIFs,
+          Reaction GIFs and more.</p>
+      </div>
+    </div>
+    <div class="introgifs">
+    </div>
+    <div class="container item" data-aos="zoom-in">
+      <div class="icecream-image remove">
+        <h1 class="message">No GIF's found...</h1>
+      </div>
+      <div class="grid">
+      </div>
+    </div>
+    <div class="animation remove">
+      <div class="circle bounce-2"></div>
+      <div class="circle bounce-2"></div>
+      <div class="circle bounce-2"></div>
+      <div class="circle bounce-2"></div>
+    </div>
+    <!-- <button type="button" id="button">Click Me!</button> -->
+  </div>
 
-        <div class="grid"></div>
-      </div>
-      <div class="box remove">
-        <div class="circle bounce-2"></div>
-        <div class="circle bounce-2"></div>
-        <div class="circle bounce-2"></div>
-        <div class="circle bounce-2"></div>
-      </div>
-      <!-- <button type="button" id="button">Click Me!</button> -->
+  <!-- <div class="modal remove">
+    <div class="model-content">
+      <img class="modal-image" src="" data-id=""></img>
     </div>
-    <div class="modal">
-      <div class="modal-content"></div>
-    </div>
-    <script src="script.js"></script>
-  </body>
+  </div> -->
+  <div class="footer">
+    <img class="giphy-img" src="/images/giphy.svg">
+  </div>
+  <script src="script1.js"></script>
+</body>
+
 </html>

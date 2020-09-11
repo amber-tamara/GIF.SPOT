@@ -202,6 +202,8 @@ document.addEventListener("click", (e) => {
 });
 
 
+
+
 rightArrow.addEventListener("click", function (e) {
   console.log(e)
   let swapImage = result.children
@@ -239,3 +241,18 @@ function changeImage() {
 //   })
 // }
 
+document.addEventListener("click", (e) => {
+  console.log(e)
+  if (e.target.src) {
+    blur.classList.toggle("active")
+    modal.classList.toggle("remove");
+    const url = e.target.src
+    const img = `
+    <img 
+    src="${url}"
+    alt="current-img"
+    />`
+    // const gifImg = document.querySelector(".modal-image").srcset += e.target.src
+    document.querySelector(".modal").innerHTML += img
+  }
+})

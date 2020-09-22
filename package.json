@@ -1,0 +1,24 @@
+{
+  "name": "GIFSPOT",
+  "version": "1.0.0",
+  "description": "Animated Gif's",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amber-tamara/GIF.SPOT.git"
+  },
+  "keywords": [],
+  "author": "Amber Jansen",
+  "license": "ISC",
+  "private": true,
+  "broserslist": [
+    "defaults"
+  ],
+  "bugs": {
+    "url": "https://github.com/amber-tamara/GIF.SPOT/issues"
+  },
+  "homepage": "https://github.com/amber-tamara/GIF.SPOT#readme"
+}

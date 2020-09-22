@@ -6,65 +6,51 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GIFSPOT</title>
   <link rel="stylesheet" href="style.css" />
-  <link rel="shortcut icon" type="image/png" href="./images/Giphy Icon Circle.png" />
+  <link rel="shortcut icon" type="image/png" href="./images/Giphy Icon.png" />
 </head>
 
 <body>
-  <div class="container" id="blur">
-    <div class="header">
-      <div class="title-box">
-        <h1>GIFSPOT</h1>
-      </div>
-      <div class="searchBox">
-        <form id="gif-form" class="form">
-          <input type="text" placeholder="Search all the GIF's" id="searchy" class="search" />
-          <button class="search-button"></button>
-        </form>
-      </div>
+  <div class="container" id="blur"> </div>
+  <div class="header">
+    <div class="title-box">
+      <h1>GIFSPOT</h1>
     </div>
-    <div class="clip">
+    <form id="gif-form" class="form">
+      <input type="text" placeholder="Search all the GIF's" id="searchy" class="search" />
+      <button class="search-button"><img class="search-icon" alt="search-icon" src="./search.svg" /></button>
+    </form>
+  </div>
+  <div class="clip">
+    <div class="introBox">
       <div class="paragraph-box">
         <p class="paragraph">Explore and share the best GIFs and most popular animated GIFs here on GIFSPOT. Find
           Funny GIFs, Cute GIFs,
           Reaction GIFs and more.</p>
       </div>
     </div>
-    <div class="introgifs">
-    </div>
-    <div class="container item" data-aos="zoom-in">
-      <div class="icecream-image remove">
-        <h1 class="message">No GIF's found...</h1>
-      </div>
-      <div class="grid">
-      </div>
-    </div>
-    <div class="animation remove">
-      <div class="circle bounce-2"></div>
-      <div class="circle bounce-2"></div>
-      <div class="circle bounce-2"></div>
-      <div class="circle bounce-2"></div>
-    </div>
-    <!-- <button type="button" id="button">Click Me!</button> -->
-  </div>
 
-  <div class="modal remove">
   </div>
-  <div class="share">
-    <button class="share-button">Social Link</button>
-    <button class="share-button">Social Link</button>
-    <button class="share-button">Social Link</button>
+  <div class="introgifs">
+  </div>
+  <span class="close remove">x</span>
+  <div class="container item" data-aos="zoom-in">
+    <div class="icecream-image remove">
+      <h1 class="message">No GIF's found...</h1>
+    </div>
+    <div class="grid">
+    </div>
+  </div>
+  <div class="circlesAnimation remove">
+    <div class="circle bounce-2"></div>
+    <div class="circle bounce-2"></div>
+    <div class="circle bounce-2"></div>
+    <div class="circle bounce-2"></div>
   </div>
   <div class="footer">
     <img class="giphy-img" src="/images/giphy.svg">
   </div>
-  <!-- <button></button>
-  <div class="share">
-    <h2>Share Now</h2>
-    <button>Social Link</button>
-    <button>Social Link</button>
-    <button>Social Link</button>
-  </div> -->
   <script src="script1.js"></script>
+
 </body>
 
 </html>

@@ -1,20 +1,12 @@
-const gifForm = document.querySelector("#gif-form");
 const icecreamImage = document.querySelector(".icecream-image");
 const clip = document.querySelector(".clip");
 const result = document.querySelector(".grid");
 const apiKey = "&api_key=lceU9yKlVaHVuU0UMn3398cd9EhBj6Jh";
-let searchTerm = document.getElementById("searchy").value;
-const animation = document.querySelector(".animation");
+const circlesAnimation = document.querySelector(".circlesAnimation");
 const introgifs = document.querySelector(".introgifs")
-let loading = false;
 let timeout = null;
 let offset = 0;
 const limit = 15;
-
-// searchTerm.addEventListener("keyup", () => {
-//   let searchTerm = document.getElementById("searchy").value;
-//   fetchGifs("api.giphy.com/v1/gifs/search/tags", `search?q=${searchTerm}`)
-// }
 
 
 /**
@@ -22,7 +14,6 @@ const limit = 15;
  * but send different requests. The grid class is targetted and a function is called to add more images
  * inside the grid
  */
-var data;
 var gifArray;
 function fetchGifs(apiUrl, queryParameters, targetClass = '.grid') {
   fetch(
@@ -31,8 +22,12 @@ function fetchGifs(apiUrl, queryParameters, targetClass = '.grid') {
     .then(res => res.json())
     .then(res => {
       gifArray = res.data
-      console.log(gifArray)
-      document.querySelector(`${targetClass}`).innerHTML += generateImageTagsForGifs(gifArray)
+      // if we are working with the intro gifs, call the filtergifs func and pass the returned value from that func into generateImageTagsForGifs
+      if ('.introgifs' === targetClass) {
+        const sizedGifs = filterGifsBasedOnWidth(gifArray)
+        document.querySelector(`${targetClass}`).innerHTML += generateImageTagsForGifs(sizedGifs)
+      } else
+        document.querySelector(`${targetClass}`).innerHTML += generateImageTagsForGifs(gifArray)
     }
     );
 }
@@ -43,7 +38,7 @@ function fetchGifs(apiUrl, queryParameters, targetClass = '.grid') {
  * sets up an environment for the gif's 
  */
 
-function loadImages(e) {
+function loadImages() {
   if (gifArray === undefined || gifArray.length === 0) {
     setNoResults()
   } else {
@@ -69,12 +64,12 @@ function setNoResults() {
   icecreamImage.classList.remove("remove");
   result.classList.add("remove");
   clip.classList.add("remove");
-  animation.classList.add("remove");
+  circlesAnimation.classList.add("remove");
   introgifs.classList.add("remove")
 }
 
 /**
- * Creates an environment for the gifs to be displayed, by removing introduction, adding a loading animation 
+ * Creates an environment for the gifs to be displayed, by removing introduction, adding a loading circlesAnimation 
  * and making the ".grid" visible.
  */
 
@@ -82,7 +77,7 @@ function gifResults() {
   result.classList.remove("remove");
   icecreamImage.classList.add("remove");
   clip.classList.add("remove");
-  animation.classList.remove("remove");
+  circlesAnimation.classList.remove("remove");
   introgifs.classList.add("remove")
 }
 
@@ -90,51 +85,84 @@ function gifResults() {
  * Create and return a HTML Payload, from the array of gifs fetched from the gify API endpoint
  */
 
+//  fixed_width
+
 function generateImageTagsForGifs(gifArray) {
   let HTMLPayload = "";
+  // loop through array
   for (let i = 0; i < gifArray.length; i++) {
     let profile_url = ""
-    if (gifArray[i].user && gifArray[i].user.profile_url && gifArray[i].username) {
-      profile_url = `<a class="profile_url" href='${gifArray[i].user.profile_url}' target="_blank">${gifArray[i].username}</a>`
+    // gifArray[i].user && 
+    if (gifArray[i].username === "") {
+      profile_url = ""
+    } else if (gifArray[i].user.profile_url && gifArray[i].username) {
+      profile_url = `<h3 class="profile-title">
+      <a class="profile_url" href='${gifArray[i].user.profile_url}' target="_blank">${gifArray[i].username}</a>
+      </h3>`
     }
-    const width = gifArray[i].images.fixed_width.width
-    const height = gifArray[i].images.fixed_width.height
-    const url = gifArray[i].images.fixed_width.url
+
+    const width = gifArray[i].images.downsized_large.width
+    const url = gifArray[i].images.downsized_large.url
     const title = gifArray[i].title
     const img = `
-      <div class="grid-item" data-id=${i}>
-      ${profile_url}
+    <div class='gif-container'>
+      <div class="grid-container" data-id=${i}>
         <img 
         onclick="toggle(event)";
         class="gif" 
-        width="${width} 
-        height="${height}" 
+        width="${width}"
         src="${url}" alt="random-gifs" 
         alt="${title}"
-        />
-      </div>
-      <a href="${url}" target="_blank">
-      <img class="sharer" src="https://simplesharebuttons.com/images/somacro/facebook.png" alt="Facebook" />
-    </a>
-    <a href="${url}"
-      target="_blank">
-      <img class="sharer" src="https://simplesharebuttons.com/images/somacro/twitter.png" alt="Twitter" />
-    </a>
-    <a
-      href="mailto:?Subject=Giphy&amp;Body=I%20saw%20this%20and%20thought%20of%20you!%20 ${url}">
-      <img class="sharer" src="https://simplesharebuttons.com/images/somacro/email.png" alt="Email" />
-    </a>
+        >      ${profile_url}
+        <div class="details-box">
+        <a href="http://www.facebook.com/sharer.php?u=${url}" target="_blank">
+        <img class="social_media_icon" src="https://simplesharebuttons.com/images/somacro/facebook.png" alt="Facebook" />
+       </a>
+       <a href="https://twitter.com/share?url=https://${url}"
+        target="_blank">
+        <img class="social_media_icon" src="https://simplesharebuttons.com/images/somacro/twitter.png" alt="Twitter" />
+       </a>
+       <a href="mailto:?Subject=Giphy&amp;Body=I%20saw%20this%20and%20thought%20of%20you!%20 ${url}">
+        <img class="social_media_icon" src="https://simplesharebuttons.com/images/somacro/email.png" alt="Email" />
+       </a>
+       </div>
+       </img>
+     </div>
+    </div>
     `;
     HTMLPayload += img;
   }
   return HTMLPayload;
 }
 
+
+
+// width 600p
+
+
 /**
  * Inital page load, intro pircture, trending gifs endpoint
  */
 window.onload = () => {
-  fetchGifs("http://api.giphy.com/v1/gifs/", 'trending?limit=4&offset=80', '.introgifs')
+  document.getElementById("searchy").value = "";
+  offset += Math.floor(Math.random() * 100);
+  fetchGifs("http://api.giphy.com/v1/gifs/", `trending?limit=50&offset=${offset}`, '.introgifs')
+}
+
+function checkWidths(gif) {
+  gifs = gif.images.downsized_large.width
+  gifsHeight = gif.images.downsized_large.height
+
+  let height = gifsHeight >= 250 && gifsHeight <= 300
+  let width = gifs >= 450 && gifs <= 500
+
+  return height && width //return true and false
+}
+
+function filterGifsBasedOnWidth(gifArray) {
+  const filteredGifs = gifArray.filter(checkWidths) // if true store in an array, if false we don't put our array. At the end of this function return the array 
+  console.log(filteredGifs.length)
+  return filteredGifs.slice(0, 4);
 }
 
 /**
@@ -146,7 +174,7 @@ function removeIntroduction() {
   result.classList.add("remove");
   icecreamImage.classList.add("remove");
   clip.classList.add("remove");
-  animation.classList.add("remove");
+  circlesAnimation.classList.add("remove");
   introgifs.classList.add("remove")
 }
 
@@ -172,105 +200,116 @@ searchForm.addEventListener("submit", (e) => {
 /**
  * On scroll event, to trigger the fetching of more gifs
  */
-window.addEventListener("scroll", () => {
-  if (window.scrollY + window.innerHeight > document.documentElement.scrollHeight && gifArray.length === 15) {
+
+document.addEventListener("scroll", (gifArray) => {
+  if (window.scrollY + window.innerHeight + 5 >= document.documentElement.scrollHeight && ".grid") {
+    // Load content
+    offset += 15;
     const query = document.querySelector("#searchy").value;
-    if (query.length > 0) {
-      offset += 15;
-      fetchGifs("http://api.giphy.com/v1/gifs/", `search?q=${query}&limit=15&offset=${offset}`);
-    }
+    fetchGifs("http://api.giphy.com/v1/gifs/", `search?q=${query}&limit=15&offset=${offset}`);
+    console.log("heybillpooooooooooooooooo")
+  } else {
+    console.log("poo")
   }
 })
+
 
 /**
  * Create a pop up modal
  */
 
-console.log(document.images)
-const modal = document.querySelector(".modal")
-console.log(modal)
-let blur = document.getElementById("blur");
+const blur = document.querySelector(".container");
+const close = document.querySelector(".close");
 
-// const modalGif = document.querySelector(".grid-item")
-let modalGif = document.querySelectorAll(".gif")
-console.log(modalGif)
-
-// function toggle(e) {
-//   e.forEach(e => {
-//     console.log(e)
-//     modal.classList.toggle("remove");
-//     blur.classList.toggle("active")
-//   })
-// }
-// eventlisten on templete literal
+/**
+ * function check if moddle box is open, by seeing if class has been applied,
+ *  then return so not to be applied to any other image. However if a image is being clicked for the firt time,
+ * apply "modal-image" class, activate blurred background and close sign. Loop through all gifs that have 
+ * "grid-container" class applied to them apart from "modal-image", then add the class "unclickable" and that sets
+ * pointer-events to none.
+ */
+let gifContainer
 function toggle(e) {
-  console.log(e)
-  e.forEach(element => {
-    console.log(element)
-  });
+  const searchForm = document.querySelector(".form");
+  searchForm.classList.add("unclickable");
 
-  // if (e.target.src) {
-  //   blur.classList.toggle("active")
-  //   modal.classList.toggle("remove");
-  //   const url = e.target.src
-  //   const profile_url = e.target.href
-  //   const img = `
-  //   <img 
-  //   class="modal-image"
-  //   src="${url}"
-  //   alt="current-img"
-  //   />`
-  //   // const gifImg = document.querySelector(".modal-image").srcset += e.target.src
-  //   document.querySelector(".modal").innerHTML += img
-  // }
+  if (checkModalIfOpen()) {
+    return;
+  }
+
+  gifContainer = (e.target.offsetParent.parentElement)
+  gifContainer.classList.add("modal-position")
+
+  let gridContainer = e.target.offsetParent
+  gridContainer.classList.add("modal-image")
+  console.log(gifContainer)
+
+  // Get all the gifs that the user hasn't clicked.
+  // Loop through and add a class unclickable
+  blur.classList.toggle("active");
+  close.classList.toggle("remove")
+  const gridContainers = document.querySelectorAll('.grid-container:not(.modal-image)');
+  for (const gif of gridContainers) {
+    gif.classList.add('unclickable')
+
+  }
+};
+
+/**
+ * Exit event decription
+ * Loops through all gifs with '.grid-container.unclickable' class applied to them,
+ * which removes the class 'unclickable'. Next the toggle function and the cross sign which is
+ * reffered to as close, is removed, bringing the images and design back
+ * to it's original form.
+ */
+
+
+close.addEventListener("click", () => {
+  removeModalIfOpen();
+  const searchForm = document.querySelector(".form");
+  searchForm.classList.remove("unclickable");
+  gifContainer.classList.remove("modal-position")
+  const gifs = document.querySelectorAll('.grid-container.unclickable');
+  for (const gif of gifs) {
+    gif.classList.remove('unclickable')
+  }
+  blur.classList.toggle("active");
+  close.classList.toggle("remove")
+  searchForm.classList.remove("unclickable")
+})
+/**
+ * description
+ * @return if modalImage is not there dont carry out function, 
+ * otherwise remove the class "modal-image" to revert image to it's original state
+ */
+function removeModalIfOpen() {
+  const modalImage = document.querySelector(".modal-image");
+  if (!modalImage) {
+    return;
+  }
+
+  console.log('modalImage', modalImage);
+  modalImage.classList.remove('modal-image');
 }
 
+/**
+ * description
+ * queryselector returns the first element that matches a specified CSS selector.
+ * @return the execution of the function is stopped when the class modal-image has been selected.
+ *
+ */
 
-// document.addEventListener("click", (e) => {
-//   console.log(e)
-//   if (e.target.src) {
-//     blur.classList.toggle("active")
-//     modal.classList.toggle("remove");
-//     const url = e.target.src
-//     const profile_url = e.target.href
-//     const img = `
-//     <img 
-//     class="modal-image"
-//     src="${url}"
-//     alt="current-img"
-//     />`
-//     // const gifImg = document.querySelector(".modal-image").srcset += e.target.src
-//     document.querySelector(".modal").innerHTML += img
-//   }
-// })
+function checkModalIfOpen() {
+  const modalImage = document.querySelector(".modal-image");
+  return modalImage;
+}
 
-// document.addEventListener("click", (e) => {
-//   console.log(e)
-//   if (e.target.src) {
-//     blur.classList.toggle("active")
-//     modal.classList.toggle("remove");
-//     const gifImg = document.querySelector(".modal-image").srcset += e.target.src
-//     console.log(gifImg)
-//   }
-// })
+const home = document.querySelector('.title-box')
 
-// console.log(document)
-// document.images[i].addEventListener(".click", () => {
-//   blur.classList.toggle("active")
-//   modal.classList.toggle("remove");
-//   console.log("yay")
-//   document.querySelector(".modal-image").srcSet +=
-
-// })
-
-  // document.querySelector(".modal-image").src += gif;
-
-// blur.classList.toggle("active")
-// modal.classList.toggle("remove");
-// gifArray.forEach(e => {
-//   e.images.fixed_width.url
-
-// if () {
-//   blur.classList.remove("active");
-//   modal.classList.add("remove");
-// }
+home.addEventListener("click", () => {
+  document.getElementById("searchy").value = "";
+  result.classList.add("remove");
+  circlesAnimation.classList.add("remove");
+  introgifs.classList.remove("remove");
+  clip.classList.remove("remove");
+})

@@ -220,6 +220,8 @@ function fetchGifs(apiUrl, queryParameters) {
 
 
 function loadImages() {
+  console.log(gifArray);
+
   if (gifArray === undefined || gifArray.length === 0) {
     setNoResults();
   } else {
@@ -367,7 +369,7 @@ searchForm.addEventListener("submit", function (e) {
   }, 1000);
   timeout = setTimeout(function () {
     return loadImages();
-  }, 1200);
+  }, 1300);
   return;
 });
 /**

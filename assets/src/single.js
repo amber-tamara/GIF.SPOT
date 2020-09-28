@@ -48,6 +48,7 @@ function fetchGifs(apiUrl, queryParameters, targetClass = '.grid') {
  */
 
 function loadImages() {
+  console.log(gifArray)
   if (gifArray === undefined || gifArray.length === 0) {
     setNoResults()
   } else {
@@ -215,7 +216,7 @@ searchForm.addEventListener("submit", (e) => {
   clearGifArray();
   clearTimeout(timeout);
   timeout = setTimeout(() => (fetchGifs("http://api.giphy.com/v1/gifs/", `search?q=${search}&limit=15&offset=0`)), 1000);
-  timeout = setTimeout(() => (loadImages()), 1200);
+  timeout = setTimeout(() => (loadImages()), 1300);
   return;
 });
 

@@ -2,46 +2,54 @@
  * Webpack configuration.
  */
 
-const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const cssnano = require('cssnano'); // https://cssnano.co/
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const CopyPlugin = require('copy-webpack-plugin'); // https://webpack.js.org/plugins/copy-webpack-plugin/
+const path = require("path");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const cssnano = require("cssnano"); // https://cssnano.co/
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const CopyPlugin = require("copy-webpack-plugin"); // https://webpack.js.org/plugins/copy-webpack-plugin/
+const webpack = require("webpack");
+const autoprefixer = require("autoprefixer");
 
 // JS Directory path.
-const JS_DIR = path.resolve(__dirname, 'src');
-const IMG_DIR = path.resolve(__dirname, 'src/images');
-const LIB_DIR = path.resolve(__dirname, 'src/library');
-const BUILD_DIR = path.resolve(__dirname, 'build');
+const JS_DIR = path.resolve(__dirname, "src") + "/js";
+const IMG_DIR = path.resolve(__dirname, "src") + "/img";
+const LIB_DIR = path.resolve(__dirname, "src") + "/library";
+const BUILD_DIR = path.resolve(__dirname, "build");
 
 const entry = {
-    single: JS_DIR + '/single.js'
+    main: JS_DIR + "/single.js"
 };
 
 const output = {
     path: BUILD_DIR,
-    filename: 'js/[name].js'
+    filename: "js/[name].js"
 };
 
 /**
  * Note: argv.mode will return 'development' or 'production'.
  */
-const plugins = (argv) => [
+const plugins = argv => [
     new CleanWebpackPlugin({
-        cleanStaleWebpackAssets: ('production' === argv.mode) // Automatically remove all unused webpack assets on rebuild, when set to true in production. ( https://www.npmjs.com/package/clean-webpack-plugin#options-and-defaults-optional )
+        cleanStaleWebpackAssets: "production" === argv.mode // Automatically remove all unused webpack assets on rebuild, when set to true in production. ( https://www.npmjs.com/package/clean-webpack-plugin#options-and-defaults-optional )
     }),
 
     new MiniCssExtractPlugin({
-        filename: 'css/[name].css'
+        filename: "css/[name].css"
     }),
 
     new CopyPlugin({
-        patterns: [
-            { from: LIB_DIR, to: BUILD_DIR + '/library' }
-        ]
+        patterns: [{ from: LIB_DIR, to: BUILD_DIR + "/library" }]
     }),
+
+    new webpack.LoaderOptionsPlugin({
+        options: {
+            postcss: [
+                autoprefixer()
+            ]
+        }
+    })
 ];
 
 const rules = [
@@ -49,24 +57,25 @@ const rules = [
         test: /\.js$/,
         include: [JS_DIR],
         exclude: /node_modules/,
-        use: 'babel-loader'
+        use: "babel-loader"
     },
     {
         test: /\.scss$/,
         exclude: /node_modules/,
         use: [
             MiniCssExtractPlugin.loader,
-            'css-loader',
-            'sass-loader',
+            "css-loader",
+            "postcss-loader",
+            "sass-loader"
         ]
     },
     {
-        test: /\.(png|jpg|svg|jpeg|gif|ico)$/,
+        test: /\.(png|jpg|svg|jpeg|gif|ico|webp)$/,
         use: {
-            loader: 'file-loader',
+            loader: "file-loader",
             options: {
-                name: '[path][name].[ext]',
-                publicPath: 'production' === process.env.NODE_ENV ? '../' : '../../'
+                name: "[path][name].[ext]",
+                publicPath: "production" === process.env.NODE_ENV ? "../" : "../../"
             }
         }
     },
@@ -74,10 +83,10 @@ const rules = [
         test: /\.(ttf|otf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
         exclude: [IMG_DIR, /node_modules/],
         use: {
-            loader: 'file-loader',
+            loader: "file-loader",
             options: {
-                name: '[path][name].[ext]',
-                publicPath: 'production' === process.env.NODE_ENV ? '../' : '../../'
+                name: "[path][name].[ext]",
+                publicPath: "production" === process.env.NODE_ENV ? "../" : "../../"
             }
         }
     }
@@ -94,7 +103,6 @@ const rules = [
  * @see https://webpack.js.org/configuration/configuration-types/#exporting-a-function
  */
 module.exports = (env, argv) => ({
-
     entry: entry,
 
     output: output,
@@ -104,10 +112,10 @@ module.exports = (env, argv) => ({
      * It adds a reference comment to the bundle so development tools know where to find it.
      * set this to false if you don't need it
      */
-    devtool: 'source-map',
+    devtool: "source-map",
 
     module: {
-        rules: rules,
+        rules: rules
     },
 
     optimization: {
@@ -126,4 +134,7 @@ module.exports = (env, argv) => ({
 
     plugins: plugins(argv),
 
+    // externals: {
+    //   jquery: "jQuery"
+    // }
 });

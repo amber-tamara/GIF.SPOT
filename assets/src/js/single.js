@@ -1,3 +1,10 @@
+import "../style.scss"
+import "../images/giphy.svg";
+import "../images/GiphyIcon.png";
+import "../images/gradient.svg";
+import "../images/icecream.jpg";
+import "../images/search.svg";
+
 const icecreamImage = document.querySelector(".icecream-image");
 const clip = document.querySelector(".clip");
 const result = document.querySelector(".grid");
@@ -8,14 +15,6 @@ let timeout = null;
 let offset = 0;
 const limit = 15;
 
-import "./images/giphy.svg";
-import "./images/GiphyIcon.png";
-import "./images/gradient.svg";
-import "./images/icecream.jpg";
-import "./images/search.svg";
-import "./style.scss";
-
-// import "./style.scss"
 
 /**
  * Set up initial fetch request, with two parameters so the api can be called inside different functions,
@@ -106,9 +105,9 @@ function generateImageTagsForGifs(gifArray) {
     if (gifArray[i].username === "") {
       profile_url = ""
     } else if (gifArray[i].user.profile_url && gifArray[i].username) {
-      profile_url = `<h3 class="profile-title">
-      <a class="profile_url" href='${gifArray[i].user.profile_url}' target="_blank">${gifArray[i].username}</a>
-      </h3>`
+      profile_url = `<h2 class="profile-title">
+      <a rel="noopener" class="profile_url" href='${gifArray[i].user.profile_url}' target="_blank">${gifArray[i].username}</a>
+      </h2>`
     }
 
     const width = gifArray[i].images.downsized_large.width
@@ -125,14 +124,14 @@ function generateImageTagsForGifs(gifArray) {
         alt="${title}"
         >      ${profile_url}
         <div class="details-box">
-        <a href="http://www.facebook.com/sharer.php?u=${url}" target="_blank">
+        <a rel="noopener" href="https://www.facebook.com/sharer.php?u=${url}" target="_blank">
         <img class="social_media_icon" src="https://simplesharebuttons.com/images/somacro/facebook.png" alt="Facebook" />
        </a>
-       <a href="https://twitter.com/share?url=https://${url}"
+       <a rel="noopener" href="https://twitter.com/share?url=https://${url}"
         target="_blank">
         <img class="social_media_icon" src="https://simplesharebuttons.com/images/somacro/twitter.png" alt="Twitter" />
        </a>
-       <a href="mailto:?Subject=Giphy&amp;Body=I%20saw%20this%20and%20thought%20of%20you!%20 ${url}">
+       <a rel="noopener" href="mailto:?Subject=Giphy&amp;Body=I%20saw%20this%20and%20thought%20of%20you!%20 ${url}">
         <img class="social_media_icon" src="https://simplesharebuttons.com/images/somacro/email.png" alt="Email" />
        </a>
        </div>
@@ -170,7 +169,7 @@ function addClickEvents(query) {
 window.onload = () => {
   document.getElementById("searchy").value = "";
   offset += Math.floor(Math.random() * 100);
-  fetchGifs("http://api.giphy.com/v1/gifs/", `trending?limit=50&offset=${offset}`, '.introgifs')
+  fetchGifs("https://api.giphy.com/v1/gifs/", `trending?limit=50&offset=${offset}`, '.introgifs')
 }
 
 function checkWidths(gif) {
@@ -215,8 +214,8 @@ searchForm.addEventListener("submit", (e) => {
   removeIntroduction();
   clearGifArray();
   clearTimeout(timeout);
-  timeout = setTimeout(() => (fetchGifs("http://api.giphy.com/v1/gifs/", `search?q=${search}&limit=15&offset=0`)), 1000);
-  timeout = setTimeout(() => (loadImages()), 1300);
+  timeout = setTimeout(() => (fetchGifs("https://api.giphy.com/v1/gifs/", `search?q=${search}&limit=15&offset=0`)), 1000);
+  timeout = setTimeout(() => (loadImages()), 1400);
   return;
 });
 
@@ -229,7 +228,7 @@ document.addEventListener("scroll", (gifArray) => {
     // Load content
     offset += 15;
     const query = document.querySelector("#searchy").value;
-    fetchGifs("http://api.giphy.com/v1/gifs/", `search?q=${query}&limit=15&offset=${offset}`);
+    fetchGifs("https://api.giphy.com/v1/gifs/", `search?q=${query}&limit=15&offset=${offset}`);
   } else {
   }
 })

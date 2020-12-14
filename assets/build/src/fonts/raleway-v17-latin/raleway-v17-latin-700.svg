@@ -1,1 +1,1 @@
-export default "../../src/fonts/raleway-v17-latin/raleway-v17-latin-700.svg";
+export default "../src/fonts/raleway-v17-latin/raleway-v17-latin-700.svg";

@@ -402,8 +402,8 @@ overflow: hidden;
 }
 
 .social_media_icon {
-  height: 50px;
-  width: 50px;
+  height: 25px;
+  width: 25px;
   transition: 1s ease-in-out;
 }
 
@@ -524,6 +524,7 @@ z-index: 10;
 
 
 @media (max-width: 440px) {
+  
 .search {
   width: 200px;
 }
@@ -534,8 +535,7 @@ z-index: 10;
   padding: 20px;
 }
 .social_media_icon { 
-  height: 50px;
-  width: 50px;
+ display: none;
 }
 .profile-title {
   font-size: 10px;

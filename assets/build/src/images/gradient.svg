@@ -1,1 +1,1 @@
-export default "../src/images/gradient.svg";
+export default "../../src/images/gradient.svg";

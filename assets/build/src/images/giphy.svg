@@ -1,1 +1,1 @@
-export default "../src/images/giphy.svg";
+export default "../../src/images/giphy.svg";

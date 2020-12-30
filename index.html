@@ -4,9 +4,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="search giphs">
+  <meta name="description" content="Share free gifs with friends">
+  <meta name="author" content="Amber Jansen">
   <title>GIFSPOT</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="shortcut icon" type="image/png" href="./images/Giphy Icon.png" />
+  <link rel="stylesheet" href="./assets/build/css/main.css" />
+  <link rel="shortcut icon" type="image/png" href="./assets/src/images/GiphyIcon.png" />
 </head>
 
 <body>
@@ -16,8 +19,8 @@
       <h1>GIFSPOT</h1>
     </div>
     <form id="gif-form" class="form">
-      <input type="text" placeholder="Search all the GIF's" id="searchy" class="search" />
-      <button class="search-button"><img class="search-icon" alt="search-icon" src="./search.svg" /></button>
+        <input type="text" placeholder="Search all the GIF's" id="searchy" class="search" />
+      <button class="search-button"><img class="search-icon" alt="search-icon" src="./assets/src/images/search.svg" /></button>
     </form>
   </div>
   <div class="clip">
@@ -35,7 +38,7 @@
   <span class="close remove">x</span>
   <div class="container item" data-aos="zoom-in">
     <div class="icecream-image remove">
-      <h1 class="message">No GIF's found...</h1>
+      <h2 class="message">No GIF's found...</h2>
     </div>
     <div class="grid">
     </div>
@@ -47,9 +50,9 @@
     <div class="circle bounce-2"></div>
   </div>
   <div class="footer">
-    <img class="giphy-img" src="/images/giphy.svg">
+    <img class="giphy-img" src="./assets/src/images/giphy.svg" alt="giphy logo">
   </div>
-  <script src="script1.js"></script>
+  <script src="./assets/build/js/main.js" defer></script>
 
 </body>
 
